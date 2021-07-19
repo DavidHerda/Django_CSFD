@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block content %}
+<h4 class="display-5">TOP 300 CSFD Movies</h4>
+
+<div class="list-group">
+    {% for movie in movies %}
+        <a href="{% url 'movie' id=movie.id %}" class="list-group-item list-group-item-action">{{movie.id}}. {{movie.title}} ({{movie.year}})</a>
+    {% endfor %}
+</div>
+
+{% if movies.has_previous %}
+    <a href="?page=1">&laquo First</a>
+    <a href="?page={{movies.previous_page_number}}">Previous</a>
+{% endif %}
+
+Page {{movies.number}} of {{movies.paginator.num_pages}}
+
+{% if movies.has_next %}
+    <a href="?page={{movies.next_page_number}}">Next</a>
+    <a href="?page={{movies.paginator.num_pages}}">Last &raquo</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block content %}
+
+    <form method=POST>
+        {% csrf_token %}        
+        <input type="text" class="form-control" placeholder="Search..." name="input">
+        <button type="input" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if input %}
+        <h4 class="display-5">Movies</h4>
+        {% for movie in movies %}
+        <ul class='list-group'>
+            <li class="list-group-item"><a href="{% url 'movie' id=movie.id %}">{{movie.title}} ({{movie.year}})</a></li>
+        </ul>
+        {% endfor %}
+    {% endif %}
+
+    <br>
+    <br>
+   
+    {% if input %}
+        <h4 class="display-5">Actors</h4>
+        {% for actor in actors %}
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{% url 'actor' id=actor.id %}">{{actor.name}}</a></li>
+        </ul> 
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}

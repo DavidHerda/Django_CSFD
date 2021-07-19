@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block content %}
+<h4 class="display-5">Actors performed in TOP 300 CSFD Movies</h4>
+
+<div class="list-group">
+    {% for actor in actors %}
+        <a href="{% url 'actor' id=actor.id %}" class="list-group-item list-group-item-action">{{actor.name}}</a>
+    {% endfor %}
+</div>
+
+{% if actors.has_previous %}
+    <a href="?page=1">&laquo First</a>
+    <a href="?page={{actors.previous_page_number}}">Previous</a>
+{% endif %}
+
+Page {{actors.number}} of {{actors.paginator.num_pages}}
+
+{% if actors.has_next %}
+    <a href="?page={{actors.next_page_number}}">Next</a>
+    <a href="?page={{actors.paginator.num_pages}}">Last &raquo</a>
+{% endif %}
+
+{% endblock %}

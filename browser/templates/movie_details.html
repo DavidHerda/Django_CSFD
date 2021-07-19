@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+{% block content %}
+<h4 class="display-4">{{movie.title}}</h4>
+<br/>
+<h4 class="display-6">Cast</h4>
+
+<div class="list-group">
+    {% for actor in movie_cast %}
+        <a href="{% url 'actor' id=actor.id %}" class="list-group-item list-group-item-action">{{actor.name}}</a>
+    {% endfor %}
+</div>
+{% endblock %}
