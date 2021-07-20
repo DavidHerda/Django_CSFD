@@ -38,12 +38,16 @@ def scrape_movie_cast(relative_url):
     soup = BS(movie_details.text, "html.parser")
     
     movie = soup.find(text="Hrají: ").parent
-    target = movie.find_next_sibling('span').find_all('a')
+    target = movie.find_next_sibling('span').find_all('a', href=True)
     
     for _ in target:
         if _.text == "více" or _.text == "méně":
             target.remove(_)
 
-    return [cast.text.strip() for cast in target]
+    actors_names = [cast.text for cast in target]
+    actors_csfd_ids = [int(re.sub("\D", "", cast['href'])) for cast in target]
+    target = zip(actors_names, actors_csfd_ids)
+
+    return [cast for cast in target]
 
 

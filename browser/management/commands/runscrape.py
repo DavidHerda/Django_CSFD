@@ -25,7 +25,7 @@ class Command(BaseCommand):
                 scraped_actors = scrape_movie_cast(movie_info[0]['href'])
 
                 for scraped_actor in scraped_actors:
-                    actor, created = Actor.objects.get_or_create(name=scraped_actor, name_unidecode=unidecode.unidecode(scraped_actor))
+                    actor, created = Actor.objects.get_or_create(name=scraped_actor[0], name_unidecode=unidecode.unidecode(scraped_actor[0]), csfd_id=scraped_actor[1])
                     actor.movies.add(movie)                 
                     movie.actors.add(actor)
 
